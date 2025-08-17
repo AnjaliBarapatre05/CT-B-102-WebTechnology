@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form</title>
+</head>
+<body style="background-color: lavenderblush;">
+    <h2>Student's information</h2>
+    <form action="/action_page.php">
+
+<fieldset>
+    <legend>personal</legend>
+<label for="fname">First name:</label><br>
+<input type="text" id="fname" name="fname"><br><br>
+<input type="submit" value="Submit"><br><br>
+
+<label for="fname">Last name:</label><br>
+<input type="text" id="lname" name="lname"><br><br>
+<input type="submit" value="Submit"><br>
+<hr>
+</fieldset>
+
+
+<h3>The select Element</h3>
+<label for="branch">Select your Branch</label>
+<select id="branch" name="branch">
+<option value=""disable selected></option>
+<option value="computer technology">Computer Technology</option>
+<option value="computer science">Computer Science</option>
+<option value="aiml">AIML</option>
+<option value="aids">AIDS</option>
+</select>
+<input type="submit"><br>
+<hr>
+
+<h3>The Multiple Select Option</h3>
+<label for="language">Choose your languages:</label>
+<select id="language" name="language" size="4" multiple>
+<option value="c">C</option>
+<option value="java">Java</option>
+<option value="c++">C++</option>
+<option value="python">Python</option>
+</select><br><br>
+<input type="submit"><br>
+<hr>
+
+<h3>Choose your fav expertise</h3>
+<input type="radio" id="html" name="fav_language" value="HTML">
+  <label for="html">HTML</label><br>
+  <input type="radio" id="css" name="fav_language" value="CSS">
+  <label for="css">CSS</label><br>
+  <input type="radio" id="javascript" name="fav_language" value="JavaScript">
+  <label for="javascript">JavaScript</label><br>
+  <hr>
+
+<h2>Textarea</h2>
+<textarea name="message" rows="10" cols="30">Your previous experience</textarea>
+<br><br>
+<input type="submit">
+<hr>
+
+</form>
+</body>
+</html>
