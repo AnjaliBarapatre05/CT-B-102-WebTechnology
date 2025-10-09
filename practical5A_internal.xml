@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="practical5.xsl"?>
+<!DOCTYPE employees[
+<!ELEMENT employees (employee+)>
+<!ELEMENT employee (id,name,department,designation,email,salary)>
+<!ELEMENT id (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT department (#PCDATA)>
+<!ELEMENT designation (#PCDATA)>
+<!ELEMENT email (#PCDATA)>
+<!ELEMENT salary (#PCDATA)>
+]>
+<employees>
+<employee>
+<id>101</id>
+<name>Rohan Mehta</name>
+<department>Software Devlopment</department>
+<designation>Senior Software Engineer</designation>
+<email>rohanmehta@techfusion.com</email>
+<salary>85000</salary>
+</employee>
+
+<employee>
+<id>102</id>
+<name>Priya Sharma</name>
+<department>Quality Assurance</department>
+<designation>QA Engineer</designation>
+<email>priyasharma@techfusion.com</email>
+<salary>65000</salary>
+</employee>
+
+<employee>
+<id>103</id>
+<name>Arjun Patel</name>
+<department>Human Resources</department>
+<designation>HR Manager</designation>
+<email>arjunpatel@techfusion.com</email>
+<salary>70000</salary>
+</employee>
+
+<employee>
+<id>104</id>
+<name>Neha Gupta</name>
+<department>UI/UX Design</department>
+<designation>UI Designer</designation>
+<email>nehagupta@techfusion.com</email>
+<salary>60000</salary>
+</employee>
+
+<employee>
+<id>105</id>
+<name>Karan Verma</name>
+<department>IT Support</department>
+<designation>System Administrator</designation>
+<email>karanverma@techfusion.com</email>
+<salary>55000</salary>
+</employee>
+
+
+</employees>
