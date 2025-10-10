@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CD Catalog</title>
+  <link rel="stylesheet" href="practical_6.css">
+</head>
+<body>
+  <h2>🎵 CD Catalog</h2>
+  <button onclick="loadDoc()">Load CD Catalog</button>
+  <div id="cdTable"></div>
+
+  <script>
+    // Load the XML file
+    function loadDoc() {
+      const xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          displayTable(this);
+        }
+      };
+      xhttp.open("GET", "practical_6.xml", true);
+      xhttp.send();
+    }
+
+    function displayTable(xml) {
+      const xmlDoc = xml.responseXML;
+      const cds = xmlDoc.getElementsByTagName("CD");
+      let table = "<table border='1'><tr><th>Title</th><th>Artist</th><th>Country</th><th>Company</th><th>Price</th><th>Year</th></tr>";
+
+      for (let i = 0; i < cds.length; i++) {
+        table += "<tr>" +
+          "<td>" + cds[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue + "</td>" +
+          "<td>" + cds[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue + "</td>" +
+          "<td>" + cds[i].getElementsByTagName("COUNTRY")[0].childNodes[0].nodeValue + "</td>" +
+          "<td>" + cds[i].getElementsByTagName("COMPANY")[0].childNodes[0].nodeValue + "</td>" +
+          "<td>" + cds[i].getElementsByTagName("PRICE")[0].childNodes[0].nodeValue + "</td>" +
+          "<td>" + cds[i].getElementsByTagName("YEAR")[0].childNodes[0].nodeValue + "</td>" +
+          "</tr>";
+      }
+
+      table += "</table>";
+      document.getElementById("cdTable").innerHTML = table;
+    }
+  </script>
+</body>
+</html>
