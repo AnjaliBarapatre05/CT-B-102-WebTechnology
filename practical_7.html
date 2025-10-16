@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Modern Calculator</title>
+
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg,#BCED09 , #F9CB40);
+    font-family: "Poppins", sans-serif;
+  }
+
+  .calculator {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    width: 320px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .calculator:hover {
+    transform: scale(1.02);
+  }
+
+  .display {
+    width: 100%;
+    height: 60px;
+    background: #222;
+    color: #fff;
+    font-size: 2rem;
+    text-align: right;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    user-select: none;
+  }
+
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  button {
+    font-size: 1.2rem;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #f0f0f0;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+  }
+
+  button:hover {
+    background: #dbeafe;
+    transform: translateY(-2px);
+  }
+
+  #clear {
+    background: #FF715B;
+    color: white;
+  }
+  #clear:hover {
+    background: #ef4444;
+  }
+
+  #allClear {
+    background: #FF715B;
+    color: white;
+    grid-column: span 2;
+  }
+  #allClear:hover {
+    background: #ef4444;
+  }
+
+  .operator {
+    background: #2F52E0;
+    color: white;
+  }
+  .operator:hover {
+    background: #3b82f6;
+  }
+
+  .equals {
+    background: #4C5B5C;
+    color: white;
+  }
+  .equals:hover {
+    background: #059669;
+  }
+
+  #dig0 {
+    grid-column: span 2;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="calculator">
+  <div class="display" id="display">0</div>
+  <div class="buttons">
+    <button id="clear">C</button>
+    <button id="div" class="operator">÷</button>
+    <button id="mul" class="operator">x</button>
+    <button id="sub" class="operator">-</button>
+
+    <button id="dig7">7</button>
+    <button id="dig8">8</button>
+    <button id="dig9">9</button>
+    <button id="add" class="operator">+</button>
+
+    <button id="dig4">4</button>
+    <button id="dig5">5</button>
+    <button id="dig6">6</button>
+    <button id="equals" class="equals">=</button>
+
+    <button id="dig1">1</button>
+    <button id="dig2">2</button>
+    <button id="dig3">3</button>
+    <button id="decimal">.</button>
+
+    <button id="dig0">0</button>
+    <button id="allClear">AC</button>
+  </div>
+</div>
+
+<script>
+const display = document.getElementById('display');
+const buttons = document.querySelectorAll('button');
+
+let currentInput = '0';
+
+function updateDisplay() {
+  display.textContent = currentInput;
+}
+
+const operators = ['+', '-', 'x', '÷'];
+const operatorMap = {
+  add: '+',
+  sub: '-',
+  mul: 'x',
+  div: '÷',
+};
+
+buttons.forEach(button => {
+  button.addEventListener('click', () => {
+    const id = button.id;
+
+    if (id === 'clear') {
+      currentInput = '0';
+      updateDisplay();
+      return;
+    }
+
+    if (id === 'allClear') {
+      // ✅ Instantly clear everything (no confirm box)
+      currentInput = '0';
+      updateDisplay();
+      return;
+    }
+
+    if (id === 'equals') {
+      try {
+        let expression = currentInput.replace(/÷/g, '/').replace(/x/g, '*');
+        let result = eval(expression);
+        if (!isFinite(result)) throw new Error("Math Error");
+        currentInput = String(result);
+        updateDisplay();
+        // ✅ Show result in dialog box
+        alert("Result = " + result);
+      } catch (e) {
+        currentInput = 'Error';
+        updateDisplay();
+        alert("Invalid Expression!");
+      }
+      return;
+    }
+
+    if (operatorMap[id]) {
+      const operatorSymbol = operatorMap[id];
+      const lastChar = currentInput[currentInput.length - 1];
+      if (operators.includes(lastChar)) {
+        currentInput = currentInput.slice(0, -1) + operatorSymbol;
+      } else {
+        currentInput += operatorSymbol;
+      }
+      updateDisplay();
+      return;
+    }
+
+    if (id.startsWith('dig')) {
+      const digit = id.slice(3);
+      if (currentInput === '0' || currentInput === 'Error') {
+        currentInput = digit;
+      } else {
+        currentInput += digit;
+      }
+      updateDisplay();
+      return;
+    }
+
+    if (id === 'decimal') {
+      let lastOpIndex = -1;
+      operators.forEach(op => {
+        const pos = currentInput.lastIndexOf(op);
+        if (pos > lastOpIndex) lastOpIndex = pos;
+      });
+      const lastNumber = currentInput.slice(lastOpIndex + 1);
+      if (!lastNumber.includes('.')) {
+        currentInput += '.';
+      }
+      updateDisplay();
+      return;
+    }
+  });
+});
+</script>
+
+</body>
+</html>
